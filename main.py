@@ -7,36 +7,16 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
 
-import coref
-import srl
 import tagger
 import spacy
 import keyword_extraction
 from similarity import spacy_string_similarity
-from allennlp.predictors.predictor import Predictor
 import nltk
 
 nltk.download('stopwords')
 nltk.download('punkt')
 st.set_page_config(layout="wide")
 st.set_option('deprecation.showPyplotGlobalUse', False)
-
-
-@st.cache_data
-def load_srl_model():
-    srl_model = Predictor.from_path(
-        "https://storage.googleapis.com/allennlp-public-models/structured-prediction-srl-bert.2020.12.15.tar.gz",
-    )
-    return srl_model
-
-
-@st.cache_data
-def load_coref_model():
-
-    coref_model = Predictor.from_path(
-        "https://storage.googleapis.com/allennlp-public-models/coref-spanbert-large-2021.03.10.tar.gz",
-    )
-    return coref_model
 
 
 @st.cache_data
@@ -61,13 +41,6 @@ def show(task_name, col_annotation, html_file=None, text=None, original_text=Non
             for keyword in keywords:
                 col_annotation.markdown("- " + keyword)
         keyword_extraction.generate_word_cloud(text=text, stream=col_annotation)
-    elif task_name == "Similarity Comparison":
-        nlp_model = load_spacy_model_large()
-        similarity = spacy_string_similarity(nlp_model=nlp_model, original_str=original_text, recalled_str=recalled_text)
-        col_annotation.markdown("Similarity Score: " + str(similarity))
-    elif task_name == "Coreference Resolution":
-        with col_annotation.expander("Visualize Annotation", expanded=True):
-            st.markdown(html_file, unsafe_allow_html=True)
     else:
         with col_annotation.expander("Visualize Annotation", expanded=True):
             for i in html_file:
@@ -101,13 +74,6 @@ def main():
     else:
         if selected == "Keyword Extraction":
             texts = st.text_area(label="Please enter the texts that you want to analyze:", height=80, value="The goal of this project is to develop a new method for the analysis of eye tracking data, which can be used to investigate attention allocation patterns of humans who are presented with dynamic stimuli.")
-        elif selected == "Coreference Resolution":
-            texts = st.text_area(label="Please enter the texts that you want to analyze:", height=80,
-                                             value="Looking for love, or perhaps just for some cafeteria food or spelling lessons, an alligator was found Monday inside a middle school in suburban Tampa, Florida. Tampa Police were notified around 7 a.m. that the gator had set itself down in a prime spot, 'in front of the cafeteria' in Stewart Middle School, the department said in a written statement. No children were inside the school when the reptile was discovered.")
-
-        elif selected == "Semantic Role Labeling":
-            texts = st.text_area(label="Please enter the texts that you want to analyze:", height=80,
-                                             value="School readmits student Cannon and allows him to use X-rays.")
         else:
             texts = st.text_area(label="Please enter the texts that you want to analyze:", height=80,
                                              value="Peter gave a book to his sister Mary yesterday in Berlin")
