@@ -51,7 +51,7 @@ def load_spacy_model_large():
     return nlp
 
 
-def show(task_name, col_annotation, html_file=None, text=None, original_text=None, recalled_text=None, nlp_model=None):
+def show(task_name, col_annotation, html_file=None, text=None, original_text=None, recalled_text=None):
     if task_name == "Keyword Extraction":
         keywords = keyword_extraction.extract_keywords(text=text)
         if len(keywords) >= 5:
