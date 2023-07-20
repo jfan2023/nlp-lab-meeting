@@ -78,7 +78,7 @@ def page_design():
     with st.sidebar:
         sidebar_menu = option_menu(
             menu_title="NLP Tasks",
-            options=["Semantic Role Labeling", "POS Tagging", "Named Entity Recognition", "Keyword Extraction", "Similarity Comparison"]
+            options=["Semantic Role Labeling", "POS Tagging", "Named Entity Recognition", "Keyword Extraction"]
         )
 
     st.title("Application of Natural Language Processing in Linguistic Research")
