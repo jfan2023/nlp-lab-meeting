@@ -22,7 +22,7 @@ st.set_page_config(layout="wide")
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
 
-@st.cache
+@st.cache_data
 def load_srl_model():
     srl_model = Predictor.from_path(
         "https://storage.googleapis.com/allennlp-public-models/structured-prediction-srl-bert.2020.12.15.tar.gz",
@@ -30,7 +30,7 @@ def load_srl_model():
     return srl_model
 
 
-@st.cache
+@st.cache_data
 def load_coref_model():
 
     coref_model = Predictor.from_path(
@@ -39,13 +39,13 @@ def load_coref_model():
     return coref_model
 
 
-@st.cache
+@st.cache_data
 def load_spacy_model():
     nlp = spacy.load("en_core_web_sm")
     return nlp
 
 
-@st.cache
+@st.cache_data
 def load_spacy_model_large():
     nlp = spacy.load("en_core_web_lg")
     return nlp
