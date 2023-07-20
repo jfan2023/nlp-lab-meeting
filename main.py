@@ -45,7 +45,13 @@ def load_spacy_model():
     return nlp
 
 
-def show(task_name, col_annotation, html_file=None, text=None, original_text=None, recalled_text=None):
+@st.cache_data
+def load_spacy_model_large():
+    nlp = spacy.load("en_core_web_lg")
+    return nlp
+
+
+def show(task_name, col_annotation, html_file=None, text=None, original_text=None, recalled_text=None, nlp_model=None):
     if task_name == "Keyword Extraction":
         keywords = keyword_extraction.extract_keywords(text=text)
         if len(keywords) >= 5:
@@ -56,7 +62,8 @@ def show(task_name, col_annotation, html_file=None, text=None, original_text=Non
                 col_annotation.markdown("- " + keyword)
         keyword_extraction.generate_word_cloud(text=text, stream=col_annotation)
     elif task_name == "Similarity Comparison":
-        similarity = spacy_string_similarity(original_str=original_text, recalled_str=recalled_text)
+        nlp_model = load_spacy_model_large()
+        similarity = spacy_string_similarity(nlp_model=nlp_model, original_str=original_text, recalled_str=recalled_text)
         col_annotation.markdown("Similarity Score: " + str(similarity))
     elif task_name == "Coreference Resolution":
         with col_annotation.expander("Visualize Annotation", expanded=True):
