@@ -17,6 +17,7 @@ from allennlp.predictors.predictor import Predictor
 import nltk
 
 nltk.download('stopwords')
+nltk.download('punkt')
 st.set_page_config(layout="wide")
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
