@@ -14,6 +14,9 @@ import spacy
 import keyword_extraction
 from similarity import spacy_string_similarity
 from allennlp.predictors.predictor import Predictor
+import nltk
+
+nltk.download('stopwords')
 st.set_page_config(layout="wide")
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
