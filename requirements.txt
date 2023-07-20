@@ -2,10 +2,9 @@ allennlp==2.10.1
 allennlp_models==2.10.1
 matplotlib==3.7.1
 rake_nltk==1.0.6
-spacy==3.2.1
+spacy==3.3.3
 streamlit==1.24.0
 streamlit_option_menu==0.3.6
 wordcloud==1.9.2
 nltk
-https://github.com/explosion/spacy-models/releases/download/en_core_web_lg-3.2.0/en_core_web_lg-3.2.0-py3-none-any.whl#egg=en_core_web_lg==3.2.0
-https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.2.0/en_core_web_sm-3.2.0-py3-none-any.whl#egg=en_core_web_sm==3.2.0
+
